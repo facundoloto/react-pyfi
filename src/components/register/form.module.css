@@ -1,0 +1,83 @@
+.enabled {
+  display: flex;
+}
+
+.disabled {
+  display: none;
+}
+
+
+/* Estilos generales del formulario */
+.loginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.loginGroup {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.loginGroup img {
+  width: 60%;
+  height: 60%;
+}
+
+.loginGroup label {
+  display: block;
+  font-size: 1.2em;
+  color: #ffffff;
+  margin-bottom: 5px;
+}
+
+.loginGroup input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  background-color: #fff;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.loginGroup button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  background-color: #784caf;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.loginGroup button[type="submit"]:hover {
+  background-color: #e394e4;
+}
+
+@keyframes rotation {
+  0% {
+    background-position: 0 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+/* Estilos para pantallas pequeñas */
+@media only screen and (max-width: 600px) {
+  .loginGroup {
+    width: 50%;
+    height: 50%;
+  }
+}

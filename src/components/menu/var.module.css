@@ -1,0 +1,38 @@
+:root {
+    --desktop-bg-color: #7149C6;;
+    --mobile-bg-color: rgb(186, 144, 198);
+    --button-bg-color: brown;
+    --color-text:hsla(0, 0%, 100%, 0.84);
+    --color-icon:#FFD966;
+  }
+
+.menuDesktopBg {
+    background-color: var(--desktop-bg-color);
+}
+
+.colorIcon {
+    color: var(--color-icon);
+    }
+
+.buttonMenuBg{
+    background: none;
+    color: var(--color-text)
+}
+
+.buttonMobileBg {
+    display: flex;
+    justify-content: center;
+}
+
+.buttonMobileBg > button{
+    background: none;
+    color: var(--color-text)
+}
+
+.dashEnabled {
+display:flex;
+}
+
+.dashDisabled{
+display:none;
+}

@@ -1,0 +1,23 @@
+.navOpen{
+    display: none;
+}
+
+
+@media (max-width: 900px) {
+    .navOpen{
+        display: flex;
+        width: 100vw !important;
+    }
+    .navOpen .inline {
+        display: flex;
+        flex-direction: row;
+        justify-content:space-around;
+        width:100% !important;
+        margin-bottom:-1em;
+    }
+
+    .inline button {
+        font-size: 100%;
+    }
+   
+}
