@@ -9,24 +9,26 @@
 
 /* Estilos generales del formulario */
 .loginContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100vw;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
 }
 
 .loginGroup {
   width: 30%;
+  height: 30%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  align-self: center;
   margin-bottom: 10px;
 }
 
-.loginGroup img {
-  width: 60%;
-  height: 60%;
+.loginGroup form {
+  width: 80%;
 }
 
 .loginGroup label {
@@ -46,14 +48,14 @@ input[type="password"] {
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-.loginGroup button[type="submit"] {
+.loginGroup form button {
   width: 100%;
   padding: 10px;
   border: none;
   border-radius: 3px;
-  background-color: #784caf;
+  /* background-color: #784caf;
   color: #ffffff;
-  cursor: pointer;
+  cursor: pointer; */
 }
 
 .loginGroup button[type="submit"]:hover {
@@ -75,9 +77,14 @@ input[type="password"] {
 }
 
 /* Estilos para pantallas pequeñas */
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 900px) {
   .loginGroup {
-    width: 50%;
-    height: 50%;
+    max-width: 80vw;
+    max-height: 80vw;
+  }
+
+  .loginGroup form {
+    width: 100%;
+    height: 100%;
   }
 }

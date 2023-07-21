@@ -11,7 +11,7 @@
   height:80%;
 	margin: auto;
   margin-top:20vh;
-
+  border-top: 1px solid var(--border-color);
 
 }
 

@@ -1,0 +1,115 @@
+.sidenav {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  z-index: 1;
+  height: 100%;
+  border-right: 1px solid;
+}
+
+
+
+.sidenav__logo {
+  width: 120px;
+  margin: 25px;
+}
+
+.sidenav__buttons {
+  display: flex;
+  flex-direction: column;
+  margin-right: 1em;
+}
+
+.sidenav__buttons svg {
+  height: 30px;
+  width: 36px;
+}
+
+.sidenav__buttons img {
+  height: 30px;
+  width: 36px;
+  margin-bottom: 10px;
+  border-radius: 100%;
+}
+
+.sidenav__button {
+  display: flex;
+  flex-direction: row;
+  background: 0;
+  border: 0;
+  margin: 5px 10px 5px 10px;
+  padding: 10px 15px 10px 15px;
+  border-radius: 15px;
+  width: 100%;
+}
+
+.sidenav__button:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.128);
+}
+
+.sidenav__button>span {
+  font-size: 18px;
+  font-weight: bolder;
+  margin-left: 10px;
+}
+
+.sidenav__more {
+  position: fixed;
+  bottom: 3px;
+}
+
+.logout__button {
+  font-size: 15px;
+  border-radius: 10px;
+  font-weight: bold;
+  background-color: rgba(255, 255, 255, 0.211);
+  border: 0;
+  padding: 10px;
+}
+
+.logout__button:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.424);
+}
+
+
+@media (max-width: 900px) {
+  .sidenav__logo {
+    display: none;
+  }
+
+  .sidenav {
+    position: fixed;
+    bottom: -1%;
+    height: 8%;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    z-index: 1;
+    border: none;
+  }
+
+  .sidenav__buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .sidenav__button {
+    width: 10%;
+    height: 10%;
+  }
+
+  .sidenav__button span {
+    display: none;
+  }
+
+  .inline button {
+    font-size: 100%;
+  }
+
+
+}

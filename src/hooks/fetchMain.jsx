@@ -1,7 +1,7 @@
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import api from "../api/fetchApi";
 
-async function fetchPosts( QueryFunctionContext) {
+async function fetchPosts(QueryFunctionContext) {
   const [_, allPost] = QueryFunctionContext.queryKey;
   const { data } = await api.get(`/post/`);
   return data;

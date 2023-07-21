@@ -1,21 +1,33 @@
-import './profile.css';
+import { getAllPostByUser } from "../../api/fetchApi";
+import { useQuery } from "@tanstack/react-query";
+import styleGallery from './profile.module.css';
 
-export default function gallery() {
-    return (
-        <>
-            <div className="gallery-item" tabindex="0">
+export default function gallery({ id }) {
+  const { isLoading, data: posts, isError, error } = useQuery({
+    queryKey: ['posts', id],
+    queryFn: () => getAllPostByUser(id),
+  });
 
-                <img src="https://images.unsplash.com/photo-1511765224389-37f0e77cf0eb?w=500&h=500&fit=crop" className="gallery-image" alt="" />
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  else if (isError) {
+    return <div>{error.message}</div>;
+  }
 
-                <div className="gallery-item-info">
-
-                    <ul>
-                        <li className="gallery-item-likes"><span className="visually-hidden">Likes:</span><i className="fas fa-heart" aria-hidden="true"></i> 56</li>
-                    </ul>
-
-                </div>
-
-            </div>
-        </>
-    )
+  return (
+    <>
+      <div className={styleGallery.container}>
+        <div className={styleGallery.gallery}>
+          {posts.map((posts) => {
+            return (
+              <div className={styleGallery.galleryItem} tabindex="0" key={posts.id} >
+                <img src={posts.image_post} className={styleGallery.galleryImage} alt="" />
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    </>
+  )
 }

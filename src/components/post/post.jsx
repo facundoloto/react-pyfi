@@ -1,69 +1,93 @@
 import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import { Icon } from 'semantic-ui-react'
-import stylePost from './../menu/var.module.css'
-import Form from 'react-bootstrap/Form';
-import Modal from 'react-bootstrap/Modal';
-import styles from './post.module.css';
-import 'semantic-ui-css/semantic.min.css'
+import { useForm } from "react-hook-form";
+import { useAuthStore } from '../../store/authStore';
+import { sendPost } from '../../api/fetchApi';
+import { themeStore } from "./../../store/themeStore";
 
-function postForm(){
+import { Button, Form, Modal } from 'react-bootstrap';
+import imageIcon from "./../../assets/imageIcon.png";
 
-const handleSubmit = (elements) => {
-  elements.preventDefualt();
-  const formData = new FormData(elements.target);
-  const postData = {}
-}
-
-}
-
-
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './post.css';
 
 export default function Post({ state, changeState }) {
-  // const [show, setShow] = useState(false);
 
-  // const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
+  const { register, handleSubmit, reset } = useForm();
+
+  const [imagen, setImage] = useState(imageIcon);
+  const idUser = useAuthStore((state) => state.idUser);
+  const isTheme = themeStore((state => state.theme));
+
+  const [open, setOpen] = useState(true);
+  /* it function works to set prewiev imagen before to sent from server*/
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      setImage(reader.result);
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+
+
+  const onSubmit = async (data, e) => {
+    const formData = new FormData();
+
+    formData.append("user", idUser);
+    formData.append("image", data.image[0]);
+    formData.append("description", data.description);
+    await sendPost(formData);
+    setImage(imageIcon);
+  };
+
   return (
     <>
-      {
-        state &&
-        <Modal show={state} onHide={changeState} >
-          <div className={styles.bgModal}>
+      <div className='modal' >
 
-            <Modal.Header closeButton>
+        {
+          <Modal show={open} onHide={changeState} >
+
+
+            <Modal.Header className={isTheme} closeButton>
               <Modal.Title>Create Post</Modal.Title>
             </Modal.Header>
 
-            <Modal.Body>
-              <Form onSubmit={handleSubmit}>
+            <Modal.Body className={isTheme}>
+              <Form onSubmit={handleSubmit(onSubmit)} >
 
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                   <div className="file is-warning is-boxed" >
-                    <label class="file-label" className={styles.file}>
-                      <input className="file-input" type="file" name="image" />
-                      <Icon name='cloud upload' />
+                    <label class="file-label">
+                      <input className="file-input"
+                        type="file"
+                        {...register("image")}
+                        onChange={handleImageChange} required />
                       select image
                     </label>
                   </div>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                  <Form.Control as="textarea" placeholder='write your felling' rows={3} name="description" />
+                  <img src={imagen} alt="Preview" />
                 </Form.Group>
 
+                <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                  <Form.Control as="textarea" placeholder='write your felling' rows={3}  {...register("description")} />
+                </Form.Group>
+                <Button type="submit" >
+                  Create
+                </Button>
               </Form>
             </Modal.Body>
+          </Modal>
 
-            <Modal.Footer>
-              <Button type="submit" variant="primary" onClick={() => changeState(false)}>
-                Create
-              </Button>
-            </Modal.Footer>
+        }
+      </div>
 
-          </div>
-        </Modal>
-      }
     </>
   );
 };

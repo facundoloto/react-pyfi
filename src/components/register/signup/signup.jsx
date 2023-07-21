@@ -1,98 +1,109 @@
 import React, { useState } from "react";
+import { themeStore } from "../../../store/themeStore";
 import { Button, Form } from "react-bootstrap";
 import Image from 'react-bootstrap/Image'
 import { useForm } from "react-hook-form";
 import { routes } from "../routes/routesApi";
 import { postMethodBody } from "../../../utils/httpMethods";
 import { signUp } from "./checkUpUser";
-import styleLogin from "./../form.module.css";
-import logo from "./../../../assets/logo.png";
-import "bootstrap/dist/css/bootstrap.css";
+import "./../login/login.css";
 
 export default function SignUp() {
-    const [changeType, setChangeType] = useState("password"); //this function like value when it will do click in show password
-    const [change, setChange] = useState(true); //it's to evalue when touch show password
     const { register, handleSubmit } = useForm();
+
+    const isTheme = themeStore((state => state.theme));
+    const changeTheme = themeStore((state) => state.changeTheme);
+
 
     const onSubmit = async (data) => {
         const response = await postMethodBody(routes.signUp, data);
         await signUp(response);
     }
 
-
-    const changeInput = () => {
-        //function for when the user will touch in show password
-        if (change === true) {
-            setChangeType("text");
-            setChange(false);
+    const onClickTheme = () => {
+        if (isTheme == "Light") {
+            document.body.classList.add('dark');
+            changeTheme("Dark");
         } else {
-            setChangeType("password");
-            setChange(true);
+            document.body.classList.remove('dark');
+            changeTheme("Light");
         }
     };
 
     return (
-        <div className={styleLogin.loginBackground}>
-            <div className={styleLogin.loginContainer}>
+        <div className="container">
 
-                <section className={styleLogin.loginGroup}>
-                    <Form onSubmit={handleSubmit(onSubmit)}>
+            <div className="main-content">
 
-                        <div class="text-center">
-                            <Image src={logo} alt="..." />
+                <div className="form-container">
+
+                    <div className="form-content box">
+
+                        <div className="signin-form" id="signin-form">
+
+                            <Form onSubmit={handleSubmit(onSubmit)}>
+
+                                <div className="form-group">
+                                    <div className="animate-input">
+                                        <Form.Control
+                                            type="text"
+                                            placeholder="Enter name"
+                                            {...register("name")}
+
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="form-group">
+                                    <div className="animate-input">
+                                        <Form.Control
+                                            type="email"
+                                            placeholder="Enter email"
+                                            {...register("email")}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="form-group">
+                                    <div className="animate-input">
+                                        <Form.Control
+                                            type="password"
+                                            placeholder="Password"
+                                            {...register("password")}
+                                        />
+                                        <button>Show</button>
+                                    </div>
+                                </div>
+
+                                <div className="btn-group">
+                                    <button className="btn-login" id="signin-btn" type="submit" >
+                                        Register
+                                    </button>
+                                </div>
+                            </Form>
                         </div>
+                    </div>
 
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Control
-                                type="text"
-                                placeholder="Enter name"
-                                {...register("name")}
-                            />
-                        </Form.Group>
+                    <div className="box goto">
+                        <p>
+                            have you an account?
+                            <a href="/login/">Log In</a>
+                        </p>
+                    </div>
 
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                            <Form.Control
-                                type="email"
-                                placeholder="Enter email"
-                                {...register("email")}
-                            />
-                            <Form.Text className="text-muted">
-                                We 'll never share your email with anyone else.
-                            </Form.Text>
-                        </Form.Group>
-
-                        <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Control
-                                type={changeType}
-                                placeholder="Password"
-                                {...register("password")}
-                            />
-                        </Form.Group>
-
-                        <Form.Text className="text-muted">
-                                choose an image for your account
-                            </Form.Text>
-
-                        <Form.Group controlId="formFile" className="mb-3">
-                            <Form.Control type="file" placeholder="enter image" {...register("image")}/>
-                        </Form.Group>
-
-                        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                            <Form.Check
-                                type="checkbox"
-                                onClick={changeInput}
-                                label="Check me out"
-                            />
-                        </Form.Group>
-
-                        <Button type="submit">
-                            Submit
-                        </Button>
-
-                    </Form>
-                </section>
+                </div>
 
             </div>
+
+            <div className="footer">
+                <div className="links">
+                    <button id="darkmode-toggle" onClick={onClickTheme}>{isTheme}</button>
+                </div>
+                <div className="copyright">
+                    © 2023 Post Your Favorite Image
+                </div>
+            </div>
         </div>
+
     );
 }

@@ -1,0 +1,308 @@
+/*
+
+All grid code is placed in a 'supports' rule (feature query) at the bottom of the CSS (Line 310). 
+        
+The 'supports' rule will only run if your browser supports CSS grid.
+
+Flexbox and floats are used as a fallback so that browsers which don't support grid will still recieve a similar layout.
+
+*/
+
+/* Base Styles */
+
+
+:root {
+	--fontSizeHeader: 1em;
+}
+
+
+
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	align-self: center;
+	width: 80vw;
+	float: right;
+	margin-top: 2em;
+}
+
+header {
+	margin-bottom: 100px;
+}
+
+.btn {
+	display: inline-block;
+	font: inherit;
+	background: none;
+	border: none;
+	color: inherit;
+	padding: 0;
+	cursor: pointer;
+}
+
+.visually-hidden {
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(1px, 1px, 1px, 1px);
+}
+
+/* Profile Section */
+
+.profile {
+	padding: 5rem 0;
+}
+
+.profile::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.profileImage {
+	float: left;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-right: 3rem;
+}
+
+.profileImage img {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+}
+
+.infoUser {
+	float: left;
+}
+
+
+.profileUserSettings,
+.profile-bio {
+	float: left;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+}
+
+.profileUserSettings {
+	margin-top: 1.1rem;
+}
+
+.profileUserName {
+	display: inline-block;
+	font-size: 1.5rem;
+	font-weight: 300;
+}
+
+.profileBtn {
+	font-size: 1rem;
+	line-height: 1.8;
+	border-radius: 0.3rem;
+	color: rgb(56, 55, 55);
+	padding: 0 2.4rem;
+	margin-left: 2rem;
+	background-color: #d7d6d6;
+}
+
+.profile-settings-btn {
+	font-size: 2rem;
+	margin-left: 1rem;
+}
+
+.profileStats {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	margin-top: 2.3rem;
+}
+
+.profileStats ul li {
+	display: inline;
+	width: auto;
+	float: left;
+	font-size: 1rem;
+	line-height: 1.5;
+	margin-right: 4rem;
+	cursor: pointer;
+}
+
+.profileStats li:last-of-type {
+	margin-right: 0;
+}
+
+.profile-bio {
+	font-size: 1.6rem;
+	font-weight: 400;
+	line-height: 1.5;
+	margin-top: 2.3rem;
+}
+
+.profileRealName,
+.profile-stat-count,
+.profile-edit-btn {
+	font-weight: 600;
+}
+
+/* Gallery Section */
+
+.gallery {
+	display: flex;
+	flex-flow: wrap;
+	justify-content: center;
+}
+
+.galleryItem {
+	max-width: 400px;
+	padding: 1rem;
+
+}
+
+.galleryItem img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	/* width: 100%;
+	height: auto; */
+}
+
+/* Loader */
+
+.loader {
+	width: 5rem;
+	height: 5rem;
+	border: 0.6rem solid #999;
+	border-bottom-color: transparent;
+	border-radius: 50%;
+	margin: 0 auto;
+	animation: loader 500ms linear infinite;
+}
+
+/* Media Query */
+@media (max-width: 900px) {
+	.container {
+		width: 100%;
+	}
+
+	.infoUser {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		align-self: center;
+	}
+
+	.profileBtn {
+		width: 100%;
+	}
+
+	.profile {
+		display: flex;
+		flex-wrap: wrap;
+		padding: 4rem 0;
+	}
+
+	.profile::after {
+		display: none;
+	}
+
+	.profileImage,
+	.profileUserSettings,
+	.profile-bio,
+	.profileStats {
+		float: none;
+		width: auto;
+	}
+
+	.profileImage img {
+		width: 7.7rem;
+	}
+
+	.profileUserSettings {
+		flex-basis: calc(100% - 10.7rem);
+		display: flex;
+		flex-wrap: wrap;
+		margin-top: 1rem;
+	}
+
+	.profileUserName {
+		font-size: 2.2rem;
+	}
+
+
+	.profile-bio {
+		font-size: 1.4rem;
+		margin-top: 1.5rem;
+	}
+
+	.profileBtn,
+	.profile-bio,
+	.profileStats {
+		flex-basis: 100%;
+	}
+
+	.profileStats {
+		order: 1;
+		margin-top: 1.5rem;
+	}
+
+	.profileStats ul {
+		display: flex;
+		text-align: center;
+		padding: 1.2rem 0;
+	}
+
+	.profileStats li {
+		font-size: 1.4rem;
+		margin: 0;
+	}
+
+	.profile-stat-count {
+		display: block;
+	}
+
+	.gallery {
+		width: 80%;
+		margin: 0 auto;
+		padding: 0 2rem;
+	}
+
+	.containerGallery {
+		display: flex;
+		flex-wrap: wrap;
+		margin: -1rem -1rem;
+		padding-bottom: 3rem;
+	}
+
+
+
+	.galleryItem {
+		position: relative;
+		flex: 1 0 22rem;
+		margin: 1rem;
+		color: #fff;
+		cursor: pointer;
+	}
+
+
+	.galleryImage {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+}
+
+/* @media screen and (max-width: 40rem) {
+
+} */
+/* Spinner Animation */
+
+@keyframes loader {
+	to {
+		transform: rotate(360deg);
+	}
+}

@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .card {
+    @apply border-[1px] border-gray-300 rounded-lg bg-white px-5 p-4 max-w-[30rem] mx-auto
+  }
+}
