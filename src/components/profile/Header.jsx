@@ -1,9 +1,13 @@
+import { useState, lazy } from "react";
 import { getUserById } from "../../api/fetchApi";
 import { useQuery } from "@tanstack/react-query";
+const FormProfile = lazy(() => import("./FormProfile"));
 import styleHeader from './profile.module.css';
 import "./profile.module.css";
 
 export default function Header({ id }) {
+  const [showModal, setShowModal] = useState(false);
+
   const { isLoading, data: user, isError, error } = useQuery({
     queryKey: ['user', id],
     queryFn: () => getUserById(id),
@@ -16,6 +20,14 @@ export default function Header({ id }) {
     return <div>{error.message}</div>;
   }
 
+  const openModal = () => {
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <header>
       <div className={styleHeader.profileUserSetting}>
@@ -24,9 +36,10 @@ export default function Header({ id }) {
         </div>
         <div className={styleHeader.infoUser}>
           <h1 className={styleHeader.profileUserName}>{user.result.name}</h1>
-          {/* <button className={styleHeader.profileBtn}>Edit Profile</button> */}
+          <button className={styleHeader.profileBtn} onClick={openModal}>Edit Profile</button>
         </div>
       </div>
+      <FormProfile show={showModal} handleClose={closeModal} />
     </header>
   );
 }
