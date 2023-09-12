@@ -19,15 +19,15 @@ export default function gallery({ id }) {
     <>
       <div className={styleGallery.container}>
         <div className={styleGallery.gallery}>
-          {posts.map((posts) => {
+          {posts.result.map((posts) => {
             return (
-              <div className={styleGallery.galleryItem} tabindex="0" key={posts.id} >
+              <div className={styleGallery.galleryItem} tabIndex={"0"} key={posts.id} >
                 <img src={posts.image_post} className={styleGallery.galleryImage} alt="" />
               </div>
-            )
+            );
           })}
         </div>
       </div>
     </>
-  )
+  );
 }

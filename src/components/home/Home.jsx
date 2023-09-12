@@ -24,7 +24,7 @@ const Home = () => {
 
             {
                 posts.map((posts) => {
-                    return <Images key={posts.id} className={stylesHome.cardHome} data={posts} />
+                    return (<Images key={posts.id} className={stylesHome.cardHome} data={posts} />);
                 })
             }
         </div>

@@ -1,23 +1,24 @@
-import { lazy, createContext, Suspense } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { lazy, Suspense } from "react";
+import { BrowserRouter, Route, Routes, Router } from "react-router-dom";
 import { BounceLoader } from "react-spinners";
 import { themeStore } from "../store/themeStore";
 
 const ProtectedRoute = lazy(() => import("../utils/protectedRoute"));
-const ProtectedLogin = lazy(() => import("../utils/protectedLogin"));
 const Register = lazy(() => import("../components/register/register"));
 const SignUp = lazy(() => import("./../components/register/signup/signup"));
 const Home = lazy(() => import("../components/home/Home"));
-const Menu = lazy(() => import("../components/menu/NavBar/NavBar"));
 const Profile = lazy(() => import("../components/profile/Profile"));
+const Menu = lazy(() => import("../components/menu/Menu"));
 
 const AppRoutes = () => {
+
     const isTheme = themeStore((state => state.theme));
     isTheme == "Dark" ? document.body.classList.add('dark') : document.body.classList.remove('dark');
 
     return (
         <>
             <BrowserRouter>
+
                 <Suspense
                     fallback={
                         <div
@@ -32,38 +33,24 @@ const AppRoutes = () => {
                             <BounceLoader color="rgb(186, 144, 198)" />
                         </div>}>
 
+
+
                     <Routes>
-                        <Route exact path="/login/" element={
-                            <ProtectedLogin>
-                                <Register />
-                            </ProtectedLogin>
-                        } />
-                        <Route exact path="/signup/" element={
-                            <ProtectedLogin>
-                                <SignUp />
-                            </ProtectedLogin>
-                        } />
-                        <Route
-                            path="/"
-                            element={
-                                <ProtectedRoute>
-                                    <Home />
-                                </ProtectedRoute>
-                            }
-                        />
-                        <Route
-                            path="/profile/:profileID"
-                            element={
-                                <ProtectedRoute>
-                                    <Profile />
-                                </ProtectedRoute>
-                            }
-                        />
+
+                        <Route element={<ProtectedRoute withUserAuth={false} />}>
+                            <Route exact path="/login" element={< Register />} />
+                            <Route exact path="/signup" element={<SignUp />} />
+                        </Route>
+
+                        <Route element={<ProtectedRoute withUserAuth={true} />}>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/profile/:profileID" element={<Profile />} />
+                        </Route>
+
                     </Routes>
+
                 </Suspense>
-                <ProtectedRoute>
-                    <Menu />
-                </ProtectedRoute>
+
             </BrowserRouter>
         </>
     );

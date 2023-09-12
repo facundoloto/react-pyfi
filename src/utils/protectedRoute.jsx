@@ -1,17 +1,13 @@
-import { useNavigate } from "react-router-dom";
-
+import { Navigate, Outlet } from "react-router-dom";
 import { useAuthStore } from "../store/authStore";
 
-const ProtectedRoute = ({ children }) => {
+export default function ProtectedRoute({ withUserAuth }) {
   const user = useAuthStore((state) => state.isAuthenticated);
-  const navigate = useNavigate();
 
-  if (user == true) {
-    return children;
+  if (withUserAuth) {
+    return user ? <Outlet /> : <Navigate to="/login" />;
   }
-
-  return navigate("/login/");
-};
-
-export default ProtectedRoute;
-
+  else {
+    return user ? <Navigate to="/" /> : <Outlet />;
+  }
+}

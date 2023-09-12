@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { themeStore } from "../../../store/themeStore";
 import { Button, Form } from "react-bootstrap";
-import Image from 'react-bootstrap/Image'
+import Image from 'react-bootstrap/Image';
 import { useForm } from "react-hook-form";
 import { routes } from "../routes/routesApi";
 import { postMethodBody } from "../../../utils/httpMethods";
@@ -18,7 +18,7 @@ export default function SignUp() {
     const onSubmit = async (data) => {
         const response = await postMethodBody(routes.signUp, data);
         await signUp(response);
-    }
+    };
 
     const onClickTheme = () => {
         if (isTheme == "Light") {

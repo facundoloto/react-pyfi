@@ -305,7 +305,7 @@ button:disabled {
 
 /* responsive */
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 990px) {
 
     .box {
         border: 0;

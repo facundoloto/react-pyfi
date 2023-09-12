@@ -10,22 +10,21 @@ import imageIcon from "./../../assets/imageIcon.png";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './post.css';
 
-export default function Post({ state, changeState }) {
-
-  const { register, handleSubmit, reset } = useForm();
-
-  const [imagen, setImage] = useState(imageIcon);
+export default function Post({ show, handleClose }) {
+  const { register, handleSubmit } = useForm();
+  const [isOpen, setIsOpen] = useState(false);
+  const [imagenPost, setImagePost] = useState(imageIcon);
   const idUser = useAuthStore((state) => state.idUser);
   const isTheme = themeStore((state => state.theme));
 
-  const [open, setOpen] = useState(true);
+  // const [open, setOpen] = useState(true);
   /* it function works to set prewiev imagen before to sent from server*/
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
 
     reader.onload = () => {
-      setImage(reader.result);
+      setImagePost(reader.result);
     };
 
     if (file) {
@@ -34,14 +33,14 @@ export default function Post({ state, changeState }) {
   };
 
 
-  const onSubmit = async (data, e) => {
+  const onSubmit = async (data) => {
     const formData = new FormData();
-
     formData.append("user", idUser);
     formData.append("image", data.image[0]);
     formData.append("description", data.description);
+
     await sendPost(formData);
-    setImage(imageIcon);
+    handleClose();
   };
 
   return (
@@ -49,7 +48,7 @@ export default function Post({ state, changeState }) {
       <div className='modal' >
 
         {
-          <Modal show={open} onHide={changeState} >
+          <Modal show={show} onHide={handleClose}>
 
 
             <Modal.Header className={isTheme} closeButton>
@@ -61,7 +60,7 @@ export default function Post({ state, changeState }) {
 
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                   <div className="file is-warning is-boxed" >
-                    <label class="file-label">
+                    <label className="file-label">
                       <input className="file-input"
                         type="file"
                         {...register("image")}
@@ -72,7 +71,7 @@ export default function Post({ state, changeState }) {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                  <img src={imagen} alt="Preview" />
+                  <img src={imagenPost} alt="Preview" />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
@@ -90,4 +89,4 @@ export default function Post({ state, changeState }) {
 
     </>
   );
-};
+}

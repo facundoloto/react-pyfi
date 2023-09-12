@@ -1,26 +1,21 @@
-import React, { useState, lazy } from "react";
+import React, { useState } from "react";
 import { useAuthStore } from "../../../store/authStore";
-import { themeStore } from "../../../store/themeStore";
-import { Button, Form } from "react-bootstrap";
 import { visiblePasswordStore } from "../../../store/visiblePasswordStore";
-
-import GoogleLoginAuth from "./authGoogle";
-import Image from 'react-bootstrap/Image'
+import { Form } from "react-bootstrap";
 import "./login.css";
+import GoogleLoginAuth from "./authGoogle";
+import OnClickTheme from "../../../utils/changeTheme";
 
 
 export default function Login() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const isTheme = themeStore((state => state.theme));
-  const changeTheme = themeStore((state) => state.changeTheme);
   const login = useAuthStore((state) => state.login);
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const isVisible = visiblePasswordStore((state) => state.isVisible);
   //it's works for look at input password
 
-  const handleLogin = async () => {
+  const handleLogin = () => {
     try {
       const type = 'system';
       const data = { email: email, password: password };
@@ -28,18 +23,7 @@ export default function Login() {
     } catch (error) {
       console.log(error);
     }
-  }
-
-  const onClickTheme = () => {
-    if (isTheme == "Light") {
-      document.body.classList.add('dark');
-      changeTheme("Dark");
-    } else {
-      document.body.classList.remove('dark');
-      changeTheme("Light");
-    }
   };
-
 
   return (
     <div className="container">
@@ -47,81 +31,73 @@ export default function Login() {
       <div className="main-content">
 
         <div className="form-container">
+          <Form>
+            <div className="form-content box">
 
-          <div className="form-content box">
 
+              <div className="signin-form" id="signin-form">
 
-            <div className="signin-form" id="signin-form">
+                <div className="form-group">
 
-              <div className="form-group">
+                  <div className="animate-input">
 
-                <div className="animate-input">
+                    <Form.Control
+                      type="email"
+                      placeholder="Enter email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
 
-                  <Form.Control
-                    type="email"
-                    placeholder="Enter email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
                 </div>
 
-              </div>
+                <div className="form-group">
+                  <div className="animate-input">
+                    <Form.Control
+                      type={isVisible}
+                      placeholder="Password"
+                      autoComplete="on"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <button>Show</button>
+                  </div>
+                </div>
 
-              <div className="form-group">
-                <div className="animate-input">
-                  <Form.Control
-                    type={isVisible}
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                  <button>Show</button>
+                <div className="btn-group">
+                  <button className="btn-login" type='button' id="signin-btn" onClick={handleLogin} >
+                    Log In
+                  </button>
+                </div>
+
+                <div className="divine">
+                  <div></div>
+                  <div>OR</div>
+                  <div></div>
                 </div>
               </div>
-
-              <div className="btn-group">
-                <button className="btn-login" id="signin-btn" onClick={handleLogin} >
-                  Log In
-                </button>
-              </div>
-
-              <div className="divine">
-                <div></div>
-                <div>OR</div>
-                <div></div>
-              </div>
-
-              <div className="btn-group">
-                <button className="btn-fb">
-                  {/* <img src="./images/facebook-icon.png" alt="" />
-                  <span>Log in with Facebook</span> */}
-                  <GoogleLoginAuth />
-                </button>
-              </div>
-
-              {/* <a href="#" className="forgot-pw">Forgot password?</a> */}
             </div>
+          </Form>
+          <div className="btn-group">
+            <GoogleLoginAuth />
           </div>
-
           <div className="box goto">
             <p>
-              Don't have an account?
+              Dont have an account?
               <a href="/signup/">Sign up</a>
             </p>
           </div>
-
         </div>
-
       </div>
 
-      <div class="footer">
-        <div class="links">
-          <button id="darkmode-toggle" onClick={onClickTheme}>{isTheme}</button>
+      <div className="footer">
+        <div className="links">
+          <OnClickTheme />
         </div>
-        <div class="copyright">
+        <div className="copyright">
           © 2023 Post Your Favorite Image
         </div>
       </div>
     </div>
   );
-};
+}

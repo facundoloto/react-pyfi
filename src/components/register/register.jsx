@@ -1,4 +1,4 @@
-import React, { useState, lazy } from "react";
+import React, { lazy } from "react";
 
 const Login = lazy(() => import("./login/login"));
 const SignUp = lazy(() => import("./signup/signup"));
@@ -10,4 +10,4 @@ export default function Register() {
       <Login />
     </section>
   );
-};
+}

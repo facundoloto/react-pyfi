@@ -6,9 +6,9 @@ import { GoogleLoginButton } from "react-social-login-buttons";
 import { getInfoUser, isActiveUser } from './loginUserGoogle';
 
 import { useAuthStore } from '../../../store/authStore';
-import { registerByGoogle, getUserByEmail } from '../../../api/fetchApi';
+import { registerByGoogle, loginByGoogle } from '../../../api/fetchApi';
 
-import "./google.css"
+import "./google.css";
 
 
 function GoogleLoginAuth() {
@@ -17,55 +17,56 @@ function GoogleLoginAuth() {
     const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
     const authUser = async (data) => {
+        /*It's type google 'cause has different auth*/
         const type = 'google';
-        const getUserByGoogle = await getInfoUser(data);
-        const isUserActive = await isActiveUser(getUserByGoogle.email);
-        const userData = { "name": getUserByGoogle.name, "email": getUserByGoogle.email, "image": getUserByGoogle.image };
+        const dataUserByGoogle = await getInfoUser(data);
 
+        //verify if email from dataUserByGoogle is already in the data base
+        const isUserActive = await isActiveUser(dataUserByGoogle.email);
+
+        //if user It isn't found this will save in the back-end
         if (isUserActive.length === 0) {
-
-            const response = await registerByGoogle(userData);
+            const response = await registerByGoogle(dataUserByGoogle);
 
             if (response.status === 200) {
                 try {
-                    const data = { id: response.id, name: response.name, image: response.image_user };
+                    /*this data will be save in the local storage and the id and token will be save in a cookie that the server send*/
+                    const data = { name: response.name, image: response.image_user };
                     login(type, data);
                     navigate("/");
-
                 } catch (error) {
                     console.log(error);
                 }
             }
 
-
         } else {
 
             try {
-                const userGoogle = await getUserByEmail(getUserByGoogle.email);
-                const data = { id: userGoogle[0].id, name: userGoogle[0].name, image: userGoogle[0].image_user };
-                login(type, data);
+                /* this It's the same case to regsiter*/
+                const data = await loginByGoogle(dataUserByGoogle);
+                const dataUser = { id: data.data.data.id, name: data.data.data.name, image: data.data.data.image_user };
+                login(type, dataUser);
 
                 if (isAuthenticated) {
                     navigate("/home");
                 }
-
             } catch (error) {
                 console.log(error);
             }
         }
-    }
+    };
 
     const onSubmit = useGoogleLogin({
-        onSuccess: async (codeResponse) => { await authUser(codeResponse) },
+        onSuccess: async (codeResponse) => { await authUser(codeResponse); },
         onError: (error) => console.log('Login Failed:', error)
     });
 
     return (
         <div>
-            <GoogleLoginButton onClick={onSubmit} className="google-btn">continue with Google</GoogleLoginButton>
+            <GoogleLoginButton onClick={onSubmit} cookiePolicy='single-host-origin' className="google-btn">continue with Google</GoogleLoginButton>
         </div>
     );
-};
+}
 
 export default GoogleLoginAuth;
 
