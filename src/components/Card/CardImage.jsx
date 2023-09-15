@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Avatar } from "@mui/material";
 import { timeAgo } from './date';
 import "./Post.css";
@@ -20,7 +19,7 @@ function CardImage({ data }) {
           </Avatar>{" "}
           <Link to={"/profile/" + data.users.id} relative="path">{data.users.name}</Link>•<span>{time}</span>
         </div>
-        <MoreHorizIcon />
+
       </div>
       <div className="post__image">
         <img src={data.image_post} alt="Post Image" />

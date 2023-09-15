@@ -1,5 +1,5 @@
 import { lazy, useState, useEffect } from "react";
-import { redirect } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import icons from "./icon";
 
 import { themeStore } from "../../store/themeStore";
@@ -12,7 +12,7 @@ import "./menu.css";
 const Post = lazy(() => import("./../post/post"));
 
 function Navbar() {
-
+  const navigate = useNavigate();
   const isActive = useAuthStore((state) => state.isAuthenticated);
   const id = useAuthStore((state) => state.idUser);
   const image = useAuthStore((state) => state.image);
@@ -50,7 +50,7 @@ function Navbar() {
     try {
       isLogout();
       if (isAuthenticated) {
-        redirect("/login/");
+        navigate("/login/");
       }
     } catch (error) {
       console.log(error);
@@ -76,12 +76,10 @@ function Navbar() {
 
               <div className="sidenav__buttons">
 
-                <a href="/">
-                  <button className="sidenav__button">
-                    <icons.home />
-                    <span>Home</span>
-                  </button>
-                </a>
+                <button className="sidenav__button" onClick={() => navigate('/')} >
+                  <icons.home />
+                  <span>Home</span>
+                </button>
 
                 <button className="sidenav__button" onClick={openModal}>
                   <icons.create />
@@ -95,14 +93,12 @@ function Navbar() {
                   <span>{isTheme}</span>
                 </button>
 
-                <a className="nav-link active" aria-current="page" href={"/profile/" + id}>
-                  <button type="button" className="sidenav__button">
-                    <icons.profile src={image} />
-                    <span>
-                      Profile
-                    </span>
-                  </button>
-                </a>
+                <button type="button" className="sidenav__button" onClick={() => navigate('/profile/' + id)}>
+                  <icons.profile src={image} />
+                  <span>
+                    Profile
+                  </span>
+                </button>
 
                 <button className="sidenav__button" onClick={handleLogOut}>
                   <icons.exit />

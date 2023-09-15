@@ -87,15 +87,18 @@ export const sendPost = async (data) => {
 
 };
 
+export const deletePost = async (id) => {
+  const res = await api.delete("/home/post/" + id);
+  return res.data;
+};
+
 export const updateUser = async (id, data) => {
-  console.log("click here");
   const response = await api.put('/user/user/' + id, data, {
     headers: {
       'Content-Type': 'form-data'
     }
   });
 
-  console.log(response);
   if (!response.status === 200) {
     throw new Error('err update user');
   }
