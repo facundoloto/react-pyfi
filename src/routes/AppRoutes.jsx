@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { BrowserRouter, Route, Routes, Router } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { BounceLoader } from "react-spinners";
 import { themeStore } from "../store/themeStore";
 

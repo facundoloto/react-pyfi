@@ -3,8 +3,7 @@ import { useForm } from "react-hook-form";
 import { useAuthStore } from '../../store/authStore';
 import { sendPost } from '../../api/fetchApi';
 import { themeStore } from "./../../store/themeStore";
-import { BounceLoader } from "react-spinners";
-
+import Loader from "../Loader/Loader";
 import { Button, Form, Modal } from 'react-bootstrap';
 import imageIcon from "./../../assets/imageIcon.png";
 
@@ -45,23 +44,11 @@ export default function Post({ show, handleClose }) {
     handleClose();
   };
 
+
   return (
     <>
-      {loading &&
-
-        <BounceLoader color="rgb(186, 144, 198)" style={{
-          position: "relative",
-          top: "25%",
-          left: "25%",
-          transform: "translate(-50%,-50%)",
-          color: 'purple',
-          fontSize: '22px',
-        }}></BounceLoader>
-      }
       <div className='modal' >
-
-
-
+        <Loader isLoading={loading} />
 
         <Modal show={show} onHide={handleClose}>
 
