@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import { timeAgo } from './date';
-import "./Post.css";
+import "./post.css";
 
 function CardImage({ data }) {
 
