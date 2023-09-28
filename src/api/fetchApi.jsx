@@ -5,7 +5,7 @@ import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 const token = cookies.get('token');
 
-const routesApi = import.meta.env.VITE_URL_API;
+const routesApi = "https://services-pyfi.onrender.com/v1";
 const api = axios.create({
   baseURL: routesApi,
   headers: {
