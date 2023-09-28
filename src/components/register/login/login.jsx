@@ -1,25 +1,54 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { redirect } from "react-router-dom";
+import { loginBySystem } from "../../../api/fetchApi";
 import { useAuthStore } from "../../../store/authStore";
-import { visiblePasswordStore } from "../../../store/visiblePasswordStore";
 import { Form } from "react-bootstrap";
-import "./login.css";
+import Cookies from 'universal-cookie';
+
+import Swal from "sweetalert2";
 import GoogleLoginAuth from "./authGoogle";
 import OnClickTheme from "../../../utils/changeTheme";
+import Loader from "../../Loader/Loader";
+import "./login.css";
 
 
 export default function Login() {
+  const cookies = new Cookies();
 
+  const login = useAuthStore((state) => state.login);
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const login = useAuthStore((state) => state.login);
-  const isVisible = visiblePasswordStore((state) => state.isVisible);
   //it's works for look at input password
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     try {
-      const type = 'system';
+      setLoading(true);
       const data = { email: email, password: password };
-      login(type, data);
+      const response = await loginBySystem(data);
+
+      if (response.status === 200) {
+        cookies.set("token", response.data.token);
+
+        Swal.fire({
+          icon: "success",
+          title: "success",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+        login(response.data.data);
+        setLoading(false);
+        redirect("/");
+      }
+      else {
+        setLoading(false);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Email or Password wrong,Try again!",
+        });
+      }
     } catch (error) {
       console.log(error);
     }
@@ -27,7 +56,7 @@ export default function Login() {
 
   return (
     <div className="container">
-
+      {loading ? <Loader isLoading={true} /> : null}
       <div className="main-content">
 
         <div className="form-container">
@@ -44,6 +73,7 @@ export default function Login() {
                     <Form.Control
                       type="email"
                       placeholder="Enter email"
+                      autoComplete="on"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                     />
@@ -54,8 +84,8 @@ export default function Login() {
                 <div className="form-group">
                   <div className="animate-input">
                     <Form.Control
-                      type={isVisible}
                       placeholder="Password"
+                      type="password"
                       autoComplete="on"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}

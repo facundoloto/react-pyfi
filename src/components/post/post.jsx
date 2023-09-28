@@ -1,10 +1,10 @@
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useAuthStore } from '../../store/authStore';
 import { sendPost } from '../../api/fetchApi';
 import { themeStore } from "./../../store/themeStore";
-import Loader from "../Loader/Loader";
 import { Button, Form, Modal } from 'react-bootstrap';
+import Loader from "../Loader/Loader";
 import imageIcon from "./../../assets/imageIcon.png";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -16,7 +16,6 @@ export default function Post({ show, handleClose }) {
   const idUser = useAuthStore((state) => state.idUser);
   const isTheme = themeStore((state => state.theme));
   const [loading, setLoading] = useState(false);
-  // const [open, setOpen] = useState(true);
   /* it function works to set prewiev imagen before to sent from server*/
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -47,10 +46,10 @@ export default function Post({ show, handleClose }) {
 
   return (
     <>
-      <div className='modal' >
-        <Loader isLoading={loading} />
 
+      <div className='modal' >
         <Modal show={show} onHide={handleClose}>
+          {loading ? <Loader isLoading={true} /> : null}
 
           <Modal.Header className={isTheme} closeButton>
             <Modal.Title>Create Post</Modal.Title>

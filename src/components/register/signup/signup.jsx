@@ -1,22 +1,26 @@
 import React, { useState } from "react";
-import { themeStore } from "../../../store/themeStore";
-import { Button, Form } from "react-bootstrap";
-import Image from 'react-bootstrap/Image';
 import { useForm } from "react-hook-form";
+import { themeStore } from "../../../store/themeStore";
+import { Form } from "react-bootstrap";
+
 import { routes } from "../routes/routesApi";
 import { postMethodBody } from "../../../utils/httpMethods";
 import { signUp } from "./checkUpUser";
+import Loader from "../../Loader/Loader";
 import "./../login/login.css";
 
 export default function SignUp() {
     const { register, handleSubmit } = useForm();
+    const [loading, setLoading] = useState(false);
 
     const isTheme = themeStore((state => state.theme));
     const changeTheme = themeStore((state) => state.changeTheme);
 
 
     const onSubmit = async (data) => {
+        setLoading(true);
         const response = await postMethodBody(routes.signUp, data);
+        setLoading(false);
         await signUp(response);
     };
 
@@ -32,6 +36,7 @@ export default function SignUp() {
 
     return (
         <div className="container">
+            {loading ? <Loader isLoading={true} /> : null}
 
             <div className="main-content">
 

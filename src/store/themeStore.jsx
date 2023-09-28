@@ -1,7 +1,5 @@
 import { create } from 'zustand';
-import LightModeIcon from '@mui/icons-material/LightMode';
 import { persist } from 'zustand/middleware';
-
 
 export const themeStore = create(persist((set) => ({
     theme: 'Light',

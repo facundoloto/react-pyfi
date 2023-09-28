@@ -4,6 +4,7 @@ import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 const token = cookies.get('token');
+
 const routesApi = import.meta.env.VITE_URL_API;
 const api = axios.create({
   baseURL: routesApi,
@@ -21,10 +22,11 @@ export const registerBySystem = async (data) => {
 export const loginBySystem = async (data) => {
 
   try {
-    const response = await api.post('/register/login/', data);
+    const dataLogin = { email: data.email, password: data.password };
+    const response = await api.post('/register/login/', dataLogin);
     return response;
   } catch (error) {
-    return error.response;
+    return error;
   }
 
 };
@@ -110,6 +112,7 @@ export const updateUser = async (id, data) => {
       showConfirmButton: false,
       timer: 1500,
     });
+
 
   }
 
