@@ -3,13 +3,12 @@ import Swal from "sweetalert2";
 import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
-const token = cookies.get('token');
 
 const routesApi = "https://services-pyfi.onrender.com/v1";
 const api = axios.create({
   baseURL: routesApi,
   headers: {
-    'Authorization': `${token}`
+    'Authorization': `${cookies.get('token')}`
   }
 });
 

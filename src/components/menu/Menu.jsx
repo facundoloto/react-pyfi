@@ -7,7 +7,7 @@ import { useAuthStore } from "../../store/authStore";
 
 import logoDark from "./../../assets/instagram.png";
 import logoLight from './../../assets/instagramLight.png';
-import "./menu.css";
+import styleMenu from "./menu.module.css";
 
 const Post = lazy(() => import("./../post/post"));
 
@@ -67,40 +67,40 @@ function Navbar() {
       {
         isAuthenticated && (
           <nav>
-            <div className={"sidenav " + isTheme}>
+            <div className={styleMenu.sidenav + " " + isTheme}>
               <img
-                className="sidenav__logo"
+                className={styleMenu.sidenavLogo}
                 src={logo}
                 alt="Instagram Logo"
               />
 
-              <div className="sidenav__buttons">
+              <div className={styleMenu.sidenavButtons}>
 
-                <button className="sidenav__button" onClick={() => navigate('/')} >
+                <button className={styleMenu.sidenavButton} onClick={() => navigate('/')} >
                   <icons.home />
                   <span>Home</span>
                 </button>
 
-                <button className="sidenav__button" onClick={openModal}>
+                <button className={styleMenu.sidenavButton} onClick={openModal}>
                   <icons.create />
                   <span>Create</span>
                 </button>
 
-                <button className="sidenav__button" onClick={onClickTheme}>
+                <button className={styleMenu.sidenavButton} onClick={onClickTheme}>
                   {
                     isTheme === 'Dark' ? <icons.dark /> : <icons.light />
                   }
                   <span>{isTheme}</span>
                 </button>
 
-                <button type="button" className="sidenav__button" onClick={() => navigate('/profile/' + id)}>
+                <button type="button" className={styleMenu.sidenavButton} onClick={() => navigate('/profile/' + id)}>
                   <icons.profile src={image} />
                   <span>
                     Profile
                   </span>
                 </button>
 
-                <button className="sidenav__button" onClick={handleLogOut}>
+                <button className={styleMenu.sidenavButton} onClick={handleLogOut}>
                   <icons.exit />
                   <span>
                     LogOut

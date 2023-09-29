@@ -16,30 +16,30 @@
   border-right: 1px solid;
 }
 
-.sidenav__logo {
+.sidenavLogo {
   width: 120px;
   margin: 25px;
 }
 
-.sidenav__buttons {
+.sidenavButtons {
   display: flex;
   flex-direction: column;
   margin-right: 1em;
 }
 
-.sidenav__buttons svg {
+.sidenavButtons svg {
   height: 30px;
   width: 36px;
 }
 
-.sidenav__buttons img {
+.sidenavButtons img {
   height: 30px;
   width: 36px;
   margin-bottom: 10px;
   border-radius: 100%;
 }
 
-.sidenav__button {
+.sidenavButton {
   display: flex;
   flex-direction: row;
   background: 0;
@@ -50,12 +50,12 @@
   width: 100%;
 }
 
-.sidenav__button:hover {
+/* .sidenavButton:hover {
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.128);
-}
+} */
 
-.sidenav__button>span {
+.sidenavButton>span {
   font-size: 18px;
   font-weight: bolder;
   margin-left: 10px;
@@ -82,7 +82,7 @@
 
 
 @media (max-width: 900px) {
-  .sidenav__logo {
+  .sidenavLogo {
     display: none;
   }
 
@@ -97,19 +97,19 @@
     border: none;
   }
 
-  .sidenav__buttons {
+  .sidenavButtons {
     display: flex;
     flex-direction: row;
     justify-content: center;
     width: 100%;
   }
 
-  .sidenav__button {
+  .sidenavButton {
     width: 10%;
     height: 10%;
   }
 
-  .sidenav__button span {
+  .sidenavButton span {
     display: none;
   }
 

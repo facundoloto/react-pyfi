@@ -8,7 +8,6 @@ import Loader from "../Loader/Loader";
 import imageIcon from "./../../assets/imageIcon.png";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './post.css';
 
 export default function Post({ show, handleClose }) {
   const { register, handleSubmit } = useForm();
