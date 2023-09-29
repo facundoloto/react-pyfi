@@ -6,7 +6,7 @@ import { themeStore } from "./../../store/themeStore";
 import { Button, Form, Modal } from 'react-bootstrap';
 import Loader from "../Loader/Loader";
 import imageIcon from "./../../assets/imageIcon.png";
-import stylePost from "./post.module.css"
+import stylePost from "./post.module.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Post({ show, handleClose }) {

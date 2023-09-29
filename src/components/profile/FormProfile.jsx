@@ -5,7 +5,7 @@ import { getUserById, updateUser } from '../../api/fetchApi';
 import { themeStore } from "../../store/themeStore";
 import { Button, Form, Modal } from 'react-bootstrap';
 import Loader from "../Loader/Loader";
-import stylePost from "./../post/post.module.css"
+import stylePost from "./../post/post.module.css";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
