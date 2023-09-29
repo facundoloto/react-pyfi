@@ -6,7 +6,7 @@ import { themeStore } from "./../../store/themeStore";
 import { Button, Form, Modal } from 'react-bootstrap';
 import Loader from "../Loader/Loader";
 import imageIcon from "./../../assets/imageIcon.png";
-
+import stylePost from "./post.module.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Post({ show, handleClose }) {
@@ -70,7 +70,7 @@ export default function Post({ show, handleClose }) {
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                <img src={imagenPost} alt="Preview" />
+                <img src={imagenPost} className={stylePost.fileImg} alt="Preview" />
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
