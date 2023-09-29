@@ -5,9 +5,9 @@ import { getUserById, updateUser } from '../../api/fetchApi';
 import { themeStore } from "../../store/themeStore";
 import { Button, Form, Modal } from 'react-bootstrap';
 import Loader from "../Loader/Loader";
+import stylePost from "./../post/post.module.css"
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './../post/post.css';
 
 export default function FormProfile({ show, handleClose }) {
     const { register, handleSubmit } = useForm();
@@ -107,7 +107,7 @@ export default function FormProfile({ show, handleClose }) {
                                     </div>
                                 </Form.Group>
                                 <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                                    <img src={userData.image} alt="Preview" />
+                                    <img src={userData.image} className={stylePost.fileImg} alt="Preview" />
                                 </Form.Group>
                                 <Button type="submit" >
                                     Update
