@@ -22,7 +22,7 @@ function Navbar() {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [logo, setLogo] = useState(isTheme == 'Light' ? logoDark : logoLight);
-  const [colorIcon, setColorIcon] = useState("");
+  const [colorIcon, setColorIcon] = useState(isTheme == 'Light' ? "" : "light");
   const [showModal, setShowModal] = useState(false);
 
   const openModal = () => {
@@ -36,7 +36,7 @@ function Navbar() {
   const onClickTheme = () => {
     if (isTheme == "Light") {
       setLogo(logoLight);
-      setColorIcon("primary");
+      setColorIcon("light");
       document.body.classList.add('dark');
       changeTheme("Dark");
 
