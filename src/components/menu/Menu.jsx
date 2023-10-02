@@ -1,5 +1,6 @@
 import { lazy, useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+import { pink } from '@mui/material/colors';
 import icons from "./icon";
 
 import { themeStore } from "../../store/themeStore";
@@ -22,7 +23,7 @@ function Navbar() {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [logo, setLogo] = useState(isTheme == 'Light' ? logoDark : logoLight);
-  const [colorIcon, setColorIcon] = useState(isTheme == 'Light' ? "" : "light");
+  const [colorIcon, setColorIcon] = useState(isTheme == 'Light' ? "" : pink[500]);
   const [showModal, setShowModal] = useState(false);
 
   const openModal = () => {
@@ -36,7 +37,7 @@ function Navbar() {
   const onClickTheme = () => {
     if (isTheme == "Light") {
       setLogo(logoLight);
-      setColorIcon("light");
+      setColorIcon(pink[500]);
       document.body.classList.add('dark');
       changeTheme("Dark");
 
@@ -80,18 +81,18 @@ function Navbar() {
               <div className={styleMenu.sidenavButtons}>
 
                 <button className={styleMenu.sidenavButton} onClick={() => navigate('/')} >
-                  <icons.home color={colorIcon} />
+                  <icons.home sx={{ color: colorIcon }} />
                   <span>Home</span>
                 </button>
 
                 <button className={styleMenu.sidenavButton} onClick={openModal}>
-                  <icons.create color={colorIcon} />
+                  <icons.create sx={{ color: colorIcon }} />
                   <span>Create</span>
                 </button>
 
                 <button className={styleMenu.sidenavButton} onClick={onClickTheme}>
                   {
-                    isTheme === 'Dark' ? <icons.dark color={colorIcon} /> : <icons.light />
+                    isTheme === 'Dark' ? <icons.dark sx={{ color: colorIcon }} /> : <icons.light />
                   }
                   <span>{isTheme}</span>
                 </button>
@@ -104,7 +105,7 @@ function Navbar() {
                 </button>
 
                 <button className={styleMenu.sidenavButton} onClick={handleLogOut}>
-                  <icons.exit color={colorIcon} />
+                  <icons.exit sx={{ color: colorIcon }} />
                   <span>
                     LogOut
                   </span>
