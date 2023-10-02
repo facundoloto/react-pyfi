@@ -1,6 +1,5 @@
-import React from 'react';
+import Cookies from 'universal-cookie';
 import { useNavigate } from "react-router-dom";
-
 import { useGoogleLogin } from '@react-oauth/google';
 import { GoogleLoginButton } from "react-social-login-buttons";
 import { getInfoUser, isActiveUser } from './loginUserGoogle';
@@ -12,6 +11,7 @@ import "./google.css";
 
 
 function GoogleLoginAuth() {
+    const cookies = new Cookies();
     const navigate = useNavigate();
     const login = useAuthStore((state) => state.login);
     const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
@@ -29,6 +29,7 @@ function GoogleLoginAuth() {
             if (response.status === 200) {
                 try {
                     /*this data will be save in the local storage and the id and token will be save in a cookie that the server send*/
+                    cookies.set("token", response.token);
                     const data = { name: response.name, image: response.image_user };
                     login(data);
                     navigate("/");
@@ -42,6 +43,7 @@ function GoogleLoginAuth() {
             try {
                 /* this It's the same case to regsiter*/
                 const data = await loginByGoogle(dataUserByGoogle);
+                cookies.set("token", data.data.token);
                 const dataUser = { id: data.data.data.id, name: data.data.data.name, image: data.data.data.image_user };
                 login(dataUser);
 

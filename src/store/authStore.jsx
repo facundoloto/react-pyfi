@@ -1,7 +1,9 @@
-import { redirect } from "react-router-dom";
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import Cookies from 'universal-cookie';
 import Swal from "sweetalert2";
+
+const cookies = new Cookies();
 
 export const useAuthStore = create(persist((set) => ({
   isAuthenticated: false,
@@ -23,18 +25,6 @@ export const useAuthStore = create(persist((set) => ({
       image: data.image_user
     });
   },
-  //   if (typeLogin === "google") {
-
-  //     set({
-  //       isAuthenticated: true,
-  //       idUser: data.id,
-  //       user: data.name,
-  //       image: data.image
-  //     });
-
-  //   }
-
-  // },
   logout: () => {
     Swal.fire({
       title: 'Do you want logout?',
@@ -45,6 +35,7 @@ export const useAuthStore = create(persist((set) => ({
       confirmButtonText: 'Yes'
     }).then((result) => {
       if (result.isConfirmed) {
+        cookies.remove('token');
         set({ isAuthenticated: false, user: null, idUser: null, image: null });
       }
     });

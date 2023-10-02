@@ -4,7 +4,7 @@ import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 
-const routesApi = "https://services-pyfi.onrender.com/v1";
+const routesApi = "http://localhost:8000/v1";
 const api = axios.create({
   baseURL: routesApi,
   headers: {
@@ -12,9 +12,18 @@ const api = axios.create({
   }
 });
 
+// const apiFetch = async () => {
+//   const fetch = axios.create({
+//     baseURL: routesApi,
+//     headers: {
+//       'Authorization': `${cookies.get('token')}`
+//     }
+//   });
+//   return fetch;
+// };
 
 export const registerBySystem = async (data) => {
-  const response = await axios.post(routesApi + '/register/signup/', data);
+  const response = await api.post(routesApi + '/register/signup/', data);
   return response;
 };
 
@@ -45,7 +54,13 @@ export const loginByGoogle = async (data) => {
 };
 
 export const getAllPost = async () => {
-  const res = await api.get("/home/post/");
+
+  //I put the headers again just because I need reload the token once users will to use the log in
+  const res = await api.get("/home/post/", {
+    headers: {
+      'Authorization': `${cookies.get('token')}`
+    }
+  });
   return res.data.result;
 };
 
@@ -60,7 +75,11 @@ export const getUserById = async (id) => {
 };
 
 export const getAllPostByUser = async (id) => {
-  const res = await api.get("/home/post/user/" + id);
+  const res = await api.get("/home/post/user/" + id, {
+    headers: {
+      'Authorization': `${cookies.get('token')}`
+    }
+  });
   return res.data;
 };
 
@@ -68,7 +87,8 @@ export const sendPost = async (data) => {
 
   const response = await api.post('/home/post/', data, {
     headers: {
-      'Content-Type': 'form-data'
+      'Content-Type': 'form-data',
+      'Authorization': `${cookies.get('token')}`
     }
   });
 
