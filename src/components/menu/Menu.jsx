@@ -22,6 +22,7 @@ function Navbar() {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [logo, setLogo] = useState(isTheme == 'Light' ? logoDark : logoLight);
+  const [colorIcon, setColorIcon] = useState("");
   const [showModal, setShowModal] = useState(false);
 
   const openModal = () => {
@@ -35,6 +36,7 @@ function Navbar() {
   const onClickTheme = () => {
     if (isTheme == "Light") {
       setLogo(logoLight);
+      setColorIcon("primary");
       document.body.classList.add('dark');
       changeTheme("Dark");
 
@@ -42,6 +44,7 @@ function Navbar() {
     else {
       setLogo(logoDark);
       document.body.classList.remove('dark');
+      setColorIcon("");
       changeTheme("Light");
     }
   };
@@ -77,18 +80,18 @@ function Navbar() {
               <div className={styleMenu.sidenavButtons}>
 
                 <button className={styleMenu.sidenavButton} onClick={() => navigate('/')} >
-                  <icons.home />
+                  <icons.home color={colorIcon} />
                   <span>Home</span>
                 </button>
 
                 <button className={styleMenu.sidenavButton} onClick={openModal}>
-                  <icons.create />
+                  <icons.create color={colorIcon} />
                   <span>Create</span>
                 </button>
 
                 <button className={styleMenu.sidenavButton} onClick={onClickTheme}>
                   {
-                    isTheme === 'Dark' ? <icons.dark /> : <icons.light />
+                    isTheme === 'Dark' ? <icons.dark color={colorIcon} /> : <icons.light />
                   }
                   <span>{isTheme}</span>
                 </button>
@@ -101,7 +104,7 @@ function Navbar() {
                 </button>
 
                 <button className={styleMenu.sidenavButton} onClick={handleLogOut}>
-                  <icons.exit />
+                  <icons.exit color={colorIcon} />
                   <span>
                     LogOut
                   </span>
