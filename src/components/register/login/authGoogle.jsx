@@ -30,7 +30,7 @@ function GoogleLoginAuth() {
                 try {
                     /*this data will be save in the local storage and the id and token will be save in a cookie that the server send*/
                     cookies.set("token", response.token);
-                    const data = { name: response.name, image: response.image_user };
+                    const data = { id: response.id, name: response.name, image: response.image_user };
                     login(data);
                     navigate("/");
                 } catch (error) {

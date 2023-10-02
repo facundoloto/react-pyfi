@@ -5,22 +5,13 @@ import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
 const routesApi = "https://services-pyfi.onrender.com/v1";
+
 const api = axios.create({
   baseURL: routesApi,
   headers: {
     'Authorization': `${cookies.get('token')}`
   }
 });
-
-// const apiFetch = async () => {
-//   const fetch = axios.create({
-//     baseURL: routesApi,
-//     headers: {
-//       'Authorization': `${cookies.get('token')}`
-//     }
-//   });
-//   return fetch;
-// };
 
 export const registerBySystem = async (data) => {
   const response = await api.post(routesApi + '/register/signup/', data);
