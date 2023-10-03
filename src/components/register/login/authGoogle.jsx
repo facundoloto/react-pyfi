@@ -5,15 +5,18 @@ import { GoogleLoginButton } from "react-social-login-buttons";
 import { getInfoUser, isActiveUser } from './loginUserGoogle';
 import { useAuthStore } from '../../../store/authStore';
 import { registerByGoogle, loginByGoogle } from '../../../api/fetchApi';
+import Loader from '../../Loader/Loader';
 import "./google.css";
 
 function GoogleLoginAuth() {
     const cookies = new Cookies();
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
     const login = useAuthStore((state) => state.login);
     const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
     const authUser = async (data) => {
+        setLoading(true);
         /*It's type google 'cause has different auth*/
         const dataUserByGoogle = await getInfoUser(data);
 
@@ -30,6 +33,7 @@ function GoogleLoginAuth() {
                     cookies.set("token", response.data.token);
                     const data = { id: response.data.data.id, name: response.data.data.name, image: response.data.data.image_user };
                     login(data);
+                    setLoading(false);
                     navigate("/");
                 } catch (error) {
                     console.log(error);
@@ -44,13 +48,14 @@ function GoogleLoginAuth() {
                 const data = await loginByGoogle(dataUserByGoogle);
                 cookies.set("token", data.data.token);
                 const dataUser = { id: data.data.data.id, name: data.data.data.name, image: data.data.data.image_user };
+                setLoading(false);
                 login(dataUser);
 
                 if (isAuthenticated) {
                     navigate("/home");
                 }
             } catch (error) {
-                console.log(error);
+                setLoading(false);
             }
         }
     };
@@ -61,9 +66,13 @@ function GoogleLoginAuth() {
     });
 
     return (
-        <div>
-            <GoogleLoginButton onClick={onSubmit} cookiePolicy='single-host-origin' className="google-btn">continue with Google</GoogleLoginButton>
+        <div className="container">
+            {loading ? <Loader isLoading={true} /> : null}
+            <div>
+                <GoogleLoginButton onClick={onSubmit} cookiePolicy='single-host-origin' className="google-btn">continue with Google</GoogleLoginButton>
+            </div>
         </div>
+
     );
 }
 
