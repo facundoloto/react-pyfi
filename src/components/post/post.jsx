@@ -4,6 +4,8 @@ import { useAuthStore } from '../../store/authStore';
 import { sendPost } from '../../api/fetchApi';
 import { themeStore } from "./../../store/themeStore";
 import { Button, Form, Modal } from 'react-bootstrap';
+
+import Swal from "sweetalert2";
 import Loader from "../Loader/Loader";
 import imageIcon from "./../../assets/imageIcon.png";
 import stylePost from "./post.module.css";
@@ -15,20 +17,39 @@ export default function Post({ show, handleClose }) {
   const idUser = useAuthStore((state) => state.idUser);
   const isTheme = themeStore((state => state.theme));
   const [loading, setLoading] = useState(false);
+
   /* it function works to set prewiev imagen before to sent from server*/
   const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
+    const selectedFile = event.target.files[0];
 
-    reader.onload = () => {
-      setImagePost(reader.result);
-    };
+    if (selectedFile) {
+      // Regular expression to match image files by extension this works to verify the kind of image
+      const imageFileRegex = /\.(jpg|jpeg|png|gif)$/i;
 
-    if (file) {
-      reader.readAsDataURL(file);
+      if (imageFileRegex.test(selectedFile.name)) {
+        //if pass the right format this works to change image in input file label
+        const reader = new FileReader();
+
+        reader.onload = () => {
+          setImagePost(reader.result);
+        };
+
+        if (selectedFile) {
+          reader.readAsDataURL(selectedFile);
+        }
+
+      }
+      else {
+
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "image hasn't format right!",
+        });
+      }
+
     }
   };
-
 
   const onSubmit = async (data) => {
     setLoading(true);
