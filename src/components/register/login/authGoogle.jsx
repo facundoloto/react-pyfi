@@ -1,10 +1,11 @@
-import Cookies from 'universal-cookie';
+import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useGoogleLogin } from '@react-oauth/google';
 import { GoogleLoginButton } from "react-social-login-buttons";
 import { getInfoUser, isActiveUser } from './loginUserGoogle';
 import { useAuthStore } from '../../../store/authStore';
 import { registerByGoogle, loginByGoogle } from '../../../api/fetchApi';
+import Cookies from 'universal-cookie';
 import Loader from '../../Loader/Loader';
 import "./google.css";
 
@@ -36,6 +37,7 @@ function GoogleLoginAuth() {
                     setLoading(false);
                     navigate("/");
                 } catch (error) {
+                    setLoading(false);
                     console.log(error);
                 }
             }
