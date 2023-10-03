@@ -68,13 +68,10 @@ function GoogleLoginAuth() {
     });
 
     return (
-        <div className="container">
+        <div>
             {loading ? <Loader isLoading={true} /> : null}
-            <div>
-                <GoogleLoginButton onClick={onSubmit} cookiePolicy='single-host-origin' className="google-btn">continue with Google</GoogleLoginButton>
-            </div>
+            <GoogleLoginButton onClick={onSubmit} cookiePolicy='single-host-origin' className="google-btn">continue with Google</GoogleLoginButton>
         </div>
-
     );
 }
 
