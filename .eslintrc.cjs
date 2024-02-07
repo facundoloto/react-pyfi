@@ -34,9 +34,17 @@ module.exports = {
         }],
     plugins: ["react"],
     rules: {
-        "semi": [2, "always"],
-        "no-unused-vars": "off",
-        "react/prop-types": "off",
+        "indent": ["error", 2], // Set indentation to 2 spaces
+        "quotes": ["error", "single"], // Enforce single quotes
+        "semi": ["error", "always"], // Require semicolons at the end of statements
+
+        // Additional rules
+        "no-console": "warn", // Warn about the use of console.log
+        "no-unused-vars": "error", // Error on unused variables
+        "comma-dangle": ["error", "always-multiline"], // Require trailing commas in multiline object literals and arrays
+
+        // Example custom rule configuration
+        "my-custom-rule": ["error", { "option": "value" }]
     },
     settings: {
         react: {
