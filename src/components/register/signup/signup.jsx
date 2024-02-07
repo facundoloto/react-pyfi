@@ -72,7 +72,7 @@ export default function SignUp() {
                                 <div className="form-group">
                                     <div className="animate-input">
                                         <Form.Control
-                                            type="password"
+                                            type="text"
                                             placeholder="Password"
                                             {...register("password")}
                                         />

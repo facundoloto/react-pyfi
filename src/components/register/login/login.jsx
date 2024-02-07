@@ -85,7 +85,7 @@ export default function Login() {
                   <div className="animate-input">
                     <Form.Control
                       placeholder="Password"
-                      type="password"
+                      type="text"
                       autoComplete="on"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
