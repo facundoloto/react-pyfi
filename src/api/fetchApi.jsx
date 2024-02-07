@@ -4,7 +4,7 @@ import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 
-const routesApi = "https://services-pyfi.onrender.com/v1";
+const routesApi = "https://pyfi-dev-knsd.3.us-1.fl0.io/v1";
 
 const api = axios.create({
   baseURL: routesApi,
