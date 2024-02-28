@@ -3,8 +3,9 @@ import { redirect } from "react-router-dom";
 import { loginBySystem } from "../../../api/fetchApi";
 import { useAuthStore } from "../../../store/authStore";
 import { Form } from "react-bootstrap";
-import Cookies from 'universal-cookie';
+import { Eye, EyeSlash } from 'react-bootstrap-icons';
 
+import Cookies from 'universal-cookie';
 import Swal from "sweetalert2";
 import GoogleLoginAuth from "./authGoogle";
 import OnClickTheme from "../../../utils/changeTheme";
@@ -19,7 +20,11 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  //it's works for look at input password
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleLogin = async () => {
     try {
@@ -82,15 +87,23 @@ export default function Login() {
                 </div>
 
                 <div className="form-group">
-                  <div className="animate-input">
-                    <Form.Control
-                      placeholder="Password"
-                      type="text"
-                      autoComplete="on"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <button>Show</button>
+                  <div className="password-field">
+                    <div className="input-group">
+                      <Form.Control
+                        type={showPassword ? 'text' : 'password'}
+                        placeholder="Password"
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                      <div className="input-group-append">
+                        <button
+                          type="button"
+                          onClick={handleTogglePassword}
+                          className="btn btn-outline-secondary toggle-button"
+                        >
+                          {showPassword ? <EyeSlash /> : <Eye />}
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
 

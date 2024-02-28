@@ -6,23 +6,22 @@ import "./post.css";
 
 function CardImage({ data }) {
 
-  const time = timeAgo(data.createdAt);
-
+  const time = timeAgo(data.created);
   return (
     <div className="post">
       <div className="post__header">
         <div className="post__headerAuthor">
-          <Avatar style={{ marginRight: "10px" }} src={data.users.image_user}>
+          <Avatar style={{ marginRight: "10px" }} src={data.image_user}>
             {
-              data.users.name.toUpperCase()
+              data.name.toUpperCase()
             }
           </Avatar>{" "}
-          <Link to={"/profile/" + data.users.id} relative="path">{data.users.name}</Link>•<span>{time}</span>
+          <Link to={"/profile/" + data.id_user} relative="path">{data.name}</Link>•<span>{time}</span>
         </div>
 
       </div>
       <div className="post__image">
-        <img src={data.image_post} alt="Post Image" />
+        <img src={data.img} alt="Post Image" />
       </div>
       <div className="post__footer">
         <div className="post__description">

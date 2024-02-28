@@ -12,6 +12,7 @@ export const useAuthStore = create(persist((set) => ({
   image: null,
 
   login: async (data) => {
+    console.log(data)
     set({
       isAuthenticated: true,
       user: data.name,

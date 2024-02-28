@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useAuthStore } from '../../store/authStore';
-import { sendPost } from '../../api/fetchApi';
+import { useDataContext } from "../../Context/ContextProvider";
 import { themeStore } from "./../../store/themeStore";
+import { useAuthStore } from "../../store/authStore";
 import { Button, Form, Modal } from 'react-bootstrap';
-
 import Swal from "sweetalert2";
 import Loader from "../Loader/Loader";
 import imageIcon from "./../../assets/imageIcon.png";
@@ -14,9 +13,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 export default function Post({ show, handleClose }) {
   const { register, handleSubmit } = useForm();
   const [imagenPost, setImagePost] = useState(imageIcon);
-  const idUser = useAuthStore((state) => state.idUser);
   const isTheme = themeStore((state => state.theme));
+  const idUser = useAuthStore((state) => state.idUser);
   const [loading, setLoading] = useState(false);
+  const { addData } = useDataContext();
 
   /* it function works to set prewiev imagen before to sent from server*/
   const handleImageChange = (event) => {
@@ -58,7 +58,7 @@ export default function Post({ show, handleClose }) {
     formData.append("image", data.image[0]);
     formData.append("description", data.description);
 
-    await sendPost(formData);
+    await addData(formData);
     setLoading(false);
     handleClose();
   };

@@ -1,30 +1,29 @@
-import { lazy, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { getAllPost } from "../../api/fetchApi";
+import { lazy, useEffect } from "react";
+import { useDataContext } from "../../Context/ContextProvider";
 import stylesHome from './Home.module.css';
 
 const Images = lazy(() => import("./../Card/CardImage"));
 
 const Home = () => {
 
-    const { isLoading, data: posts, isError, error } = useQuery({
-        queryKey: ['posts'],
-        queryFn: getAllPost
-    });
+    const { data, fetchDataAll } = useDataContext();
 
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
-    else if (isError) {
-        return <div>{error.message}</div>;
-    }
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            clearInterval(intervalId); // Stop the interval
+            fetchDataAll();
+        }, 1000);
+        return () => clearInterval(intervalId);
+    }, []);
+
+
 
     return (
         <div className={stylesHome.containerHome}>
 
             {
-                posts.map((posts) => {
-                    return (<Images key={posts.id} className={stylesHome.cardHome} data={posts} />);
+                data.map((data) => {
+                    return (<Images key={data.id} className={stylesHome.cardHome} data={data} />);
                 })
             }
         </div>

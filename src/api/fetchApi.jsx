@@ -3,8 +3,10 @@ import Swal from "sweetalert2";
 import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
-
 const routesApi = "https://services-pyfi.onrender.com/v1";
+// const routesApi = "http://localhost:8000/v1";
+
+
 
 const api = axios.create({
   baseURL: routesApi,
@@ -82,18 +84,17 @@ export const sendPost = async (data) => {
       'Authorization': `${cookies.get('token')}`
     }
   });
-
   if (!response.status === 200) {
     throw new Error('err send post');
   }
   else {
-
     Swal.fire({
       icon: "success",
       title: "success",
       showConfirmButton: false,
       timer: 1500,
     });
+    return response;
 
   }
 
