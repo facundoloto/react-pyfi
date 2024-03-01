@@ -1,6 +1,6 @@
 import { lazy, useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import { pink } from '@mui/material/colors';
+import { lightBlue } from '@mui/material/colors';
 import icons from "./icon";
 
 import { themeStore } from "../../store/themeStore";
@@ -10,7 +10,7 @@ import logoDark from "./../../assets/instagram.png";
 import logoLight from './../../assets/instagramLight.png';
 import styleMenu from "./menu.module.css";
 
-const Post = lazy(() => import("./../post/post"));
+const Post = lazy(() => import("../Post/post"));
 
 function Navbar() {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ function Navbar() {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [logo, setLogo] = useState(isTheme == 'Light' ? logoDark : logoLight);
-  const [colorIcon, setColorIcon] = useState(isTheme == 'Light' ? "" : pink[500]);
+  const [colorIcon, setColorIcon] = useState(isTheme == 'Light' ? "" : lightBlue[500]);
   const [showModal, setShowModal] = useState(false);
 
   const openModal = () => {
@@ -37,7 +37,7 @@ function Navbar() {
   const onClickTheme = () => {
     if (isTheme == "Light") {
       setLogo(logoLight);
-      setColorIcon(pink[500]);
+      setColorIcon(lightBlue[500]);
       document.body.classList.add('dark');
       changeTheme("Dark");
 
@@ -114,7 +114,6 @@ function Navbar() {
               <Post show={showModal} handleClose={closeModal} />
             </div>
           </nav>
-
         )
       }
     </>

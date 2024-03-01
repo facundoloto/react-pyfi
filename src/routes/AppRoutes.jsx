@@ -4,10 +4,10 @@ import { BounceLoader } from "react-spinners";
 import { themeStore } from "../store/themeStore";
 
 const ProtectedRoute = lazy(() => import("../utils/protectedRoute"));
-const Register = lazy(() => import("../components/register/register"));
-const SignUp = lazy(() => import("./../components/register/signup/signup"));
-const Home = lazy(() => import("../components/home/Home"));
-const Profile = lazy(() => import("../components/profile/Profile"));
+const Register = lazy(() => import("../components/Auth/register"));
+const SignUp = lazy(() => import("./../components/Auth/SignUp/signup"));
+const Home = lazy(() => import("../components/Home/Home"));
+const Profile = lazy(() => import("../components/Profile/Profile"));
 
 const AppRoutes = () => {
 

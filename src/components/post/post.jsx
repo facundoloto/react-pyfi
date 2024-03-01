@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDataContext } from "../../Context/ContextProvider";
-import { themeStore } from "./../../store/themeStore";
+import { themeStore } from "../../store/themeStore";
 import { useAuthStore } from "../../store/authStore";
 import { Button, Form, Modal } from 'react-bootstrap';
 import Swal from "sweetalert2";

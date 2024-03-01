@@ -6,8 +6,6 @@ const cookies = new Cookies();
 const routesApi = "https://services-pyfi.onrender.com/v1";
 // const routesApi = "http://localhost:8000/v1";
 
-
-
 const api = axios.create({
   baseURL: routesApi,
   headers: {
@@ -21,7 +19,6 @@ export const registerBySystem = async (data) => {
 };
 
 export const loginBySystem = async (data) => {
-
   try {
     const dataLogin = { email: data.email, password: data.password };
     const response = await api.post('/register/login/', dataLogin);
@@ -29,7 +26,6 @@ export const loginBySystem = async (data) => {
   } catch (error) {
     return error;
   }
-
 };
 
 export const registerByGoogle = async (data) => {
@@ -77,13 +73,13 @@ export const getAllPostByUser = async (id) => {
 };
 
 export const sendPost = async (data) => {
-
   const response = await api.post('/home/post/', data, {
     headers: {
       'Content-Type': 'form-data',
       'Authorization': `${cookies.get('token')}`
     }
   });
+
   if (!response.status === 200) {
     throw new Error('err send post');
   }
@@ -95,7 +91,6 @@ export const sendPost = async (data) => {
       timer: 1500,
     });
     return response;
-
   }
 
 };
@@ -116,15 +111,12 @@ export const updateUser = async (id, data) => {
     throw new Error('err update user');
   }
   else {
-
     Swal.fire({
       icon: "success",
       title: "success",
       showConfirmButton: false,
       timer: 1500,
     });
-
-
   }
 
 };

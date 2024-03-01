@@ -2,7 +2,7 @@ import { lazy, useEffect } from "react";
 import { useDataContext } from "../../Context/ContextProvider";
 import stylesHome from './Home.module.css';
 
-const Images = lazy(() => import("./../Card/CardImage"));
+const Images = lazy(() => import("../Card/CardImage"));
 
 const Home = () => {
 

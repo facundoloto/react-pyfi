@@ -11,6 +11,7 @@ export const useDataContext = () => {
 export const DataProvider = ({ children }) => {
     const [data, setData] = useState([]);
     const fetchDataAll = async () => {
+        setData([]);
         const response = await getAllPost();
         const dtos = response.map(item => (
             new PostDto(item.id, item.users.id, item.users.name, item.users.image_user, item.description, item.image_post, item.createdAt)
@@ -19,6 +20,7 @@ export const DataProvider = ({ children }) => {
     };
 
     const getAllPostUser = async (idUser) => {
+        setData([]);
         const response = await getAllPostByUser(idUser);
         const dtos = response.result.map(item => (
             new PostDto(item.id, item.id_user, "", "", item.description, item.image_post, item.createdAt)
@@ -37,12 +39,11 @@ export const DataProvider = ({ children }) => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 const response = await deletePost(id);
+                console.log(response)
                 try {
-                    if (response.status === true) {
+                    if (response.status === 200) {
                         const updatedData = data.filter(data => data.id !== id);
                         setData(updatedData);
-                    } else {
-                        console.log("err delete")
                     }
                 } catch (error) {
                     new Error('It could not delete contact');
@@ -58,9 +59,6 @@ export const DataProvider = ({ children }) => {
             await fetchDataAll();
         }
     };
-    useEffect(() => {
-        fetchDataAll();
-    }, []);
 
     const contextValue = {
         data,
