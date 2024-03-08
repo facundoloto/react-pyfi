@@ -97,7 +97,7 @@ export const sendPost = async (data) => {
 
 export const deletePost = async (id) => {
   const res = await api.delete("/home/post/" + id);
-  return res.data;
+  return res;
 };
 
 export const updateUser = async (id, data) => {

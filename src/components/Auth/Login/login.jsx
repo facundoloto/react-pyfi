@@ -87,26 +87,23 @@ export default function Login() {
                 </div>
 
                 <div className="form-group">
-                  <div className="password-field">
-                    <div className="input-group">
-                      <Form.Control
-                        type={showPassword ? 'text' : 'password'}
-                        placeholder="Password"
-                        onChange={(e) => setPassword(e.target.value)}
-                      />
-                      <div className="input-group-append">
-                        <button
-                          type="button"
-                          onClick={handleTogglePassword}
-                          className="btn btn-outline-secondary toggle-button"
-                        >
-                          {showPassword ? <EyeSlash /> : <Eye />}
-                        </button>
-                      </div>
-                    </div>
+                  <div className="animate-input">
+                    <Form.Control
+                      type={showPassword ? 'text' : 'password'}
+                      placeholder="Password"
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
                   </div>
                 </div>
-
+                <div className="form-group">
+                  <button
+                    type="button"
+                    onClick={handleTogglePassword}
+                    className="btn btn-outline-secondary toggle-button"
+                  >
+                    {showPassword ? <EyeSlash /> : <Eye />}
+                  </button>
+                </div>
                 <div className="btn-group">
                   <button className="btn-login" type='button' id="signin-btn" onClick={handleLogin} >
                     Log In

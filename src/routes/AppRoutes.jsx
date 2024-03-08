@@ -1,13 +1,13 @@
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
-import { BounceLoader } from "react-spinners";
 import { themeStore } from "../store/themeStore";
+import Loader from "../components/Loader/Loader";
 
-const ProtectedRoute = lazy(() => import("../utils/protectedRoute"));
-const Register = lazy(() => import("../components/Auth/register"));
+const ProtectedRoute = lazy(() => import(".././utils/protectedRoute"));
+const Login = lazy(() => import("./../components/Auth/Login/login"));
 const SignUp = lazy(() => import("./../components/Auth/SignUp/signup"));
-const Home = lazy(() => import("../components/Home/Home"));
-const Profile = lazy(() => import("../components/Profile/Profile"));
+const Home = lazy(() => import("./../components/Home/Home"));
+const Profile = lazy(() => import(".././components/Profile/Profile"));
 
 const AppRoutes = () => {
 
@@ -16,25 +16,10 @@ const AppRoutes = () => {
 
     return (
         <>
-
-            <Suspense
-                fallback={
-                    <div
-                        style={{
-                            position: "absolute",
-                            top: "50%",
-                            left: "50%",
-                            // transform: "translate(-50%,-50%)",
-                            // color: 'purple',
-                            // fontSize: '22px',
-                        }}>
-                        <BounceLoader color="rgb(186, 144, 198)" />
-                    </div>}>
-
+            <Suspense fallback={<Loader isLoading={true} />}>
                 <Routes>
-
                     <Route element={<ProtectedRoute withUserAuth={false} />}>
-                        <Route exact path="/login" element={< Register />} />
+                        <Route exact path="/login" element={< Login />} />
                         <Route exact path="/signup" element={<SignUp />} />
                     </Route>
 
@@ -44,9 +29,7 @@ const AppRoutes = () => {
                     </Route>
 
                 </Routes>
-
             </Suspense>
-
         </>
     );
 };
