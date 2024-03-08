@@ -7,7 +7,7 @@ import { routes } from "../routes/routesApi";
 import { postMethodBody } from "../../../utils/httpMethods";
 import { signUp } from "./checkUpUser";
 import Loader from "../../Loader/Loader";
-import "./../login/login.css";
+import "./../Login/login.css";
 
 export default function SignUp() {
     const { register, handleSubmit } = useForm();
